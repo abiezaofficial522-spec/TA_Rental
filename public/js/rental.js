@@ -36,3 +36,29 @@ featureCards.forEach(card => {
         card.style.boxShadow = '0 20px 40px rgba(255, 0, 191, 0.3)';
     });
 });
+
+// Dropdown menu toggle for mobile and click interaction
+const dropbtn = document.querySelector('.dropbtn');
+const dropdownContent = document.querySelector('.dropdown-content');
+
+dropbtn.addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default link behavior
+    dropdownContent.classList.toggle('show');
+});
+
+// Close the dropdown when clicking outside
+window.addEventListener('click', function(event) {
+    if (!event.target.matches('.dropbtn')) {
+        if (dropdownContent.classList.contains('show')) {
+            dropdownContent.classList.remove('show');
+        }
+    }
+});
+
+// Auto-hide success notification after 5 seconds
+const successNotification = document.getElementById('success-notification');
+if (successNotification) {
+    setTimeout(() => {
+        successNotification.style.display = 'none';
+    }, 5000); // 5000 milliseconds = 5 seconds
+}
