@@ -52,26 +52,29 @@ Route::get('/cecep', function () {
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-// --- SETUP DATABASE MYSQL OTOMATIS ---
 Route::get('/setup-mysql', function () {
     try {
-        // 1. Perintah Migrate (Bikin Tabel)
+        // 1. BERSIHKAN CACHE (Supaya route login muncul lagi)
+        \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+        \Illuminate\Support\Facades\Artisan::call('route:clear');
+
+        // 2. Update Database
         \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
-        
-        // 2. Hapus user lama jika ada (biar bersih)
+
+        // 3. Pastikan Admin Ada
+        // Hapus dulu biar tidak duplikat
         \App\Models\User::where('email', 'admin@admin.com')->delete();
-        
-        // 3. Buat User Admin Baru
+
+        // Buat ulang
         \App\Models\User::create([
             'name' => 'Super Admin',
             'email' => 'admin@admin.com',
-            'password' => bcrypt('password'), // passwordnya: password
+            'password' => bcrypt('password'),
         ]);
 
-        return '<h1>SUKSES! 🎉</h1> <p>Database MySQL sudah aktif. Admin sudah dibuat.</p> <a href="/admin/login">Klik disini untuk Login</a>';
-        
+        return '<h1>SUKSES & REFRESH! 🚀</h1> <p>Cache sudah dibersihkan. Database aman.</p> <p>Silakan coba login sekarang:</p> <ul><li><a href="/admin/login">Login Admin (Filament)</a></li><li><a href="/login">Login Biasa</a></li></ul>';
+
     } catch (\Exception $e) {
-        // Kalau error, tampilkan errornya biar ketahuan salah dimana
-        return '<h1>GAGAL :(</h1> <p>Pesan Error: ' . $e->getMessage() . '</p>';
+        return '<h1>GAGAL :(</h1> <p>' . $e->getMessage() . '</p>';
     }
 });
