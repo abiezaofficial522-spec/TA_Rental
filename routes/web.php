@@ -47,6 +47,21 @@ Route::get('/cecep', function () {
     return view('identitas.cecep');
 })->name('cecep');
 
-// --- TEMPORARY ROUTE (HAPUS NANTI) ---
-use Illuminate\Support\Facades\Hash;
+// --- TARUH KODINGAN INI DI PALING BAWAH FILE ---
+
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+
+Route::get('/fix-admin', function () {
+    // Hapus user lama biar bersih
+    User::truncate(); 
+    
+    // Buat User Admin Baru
+    User::create([
+        'name' => 'Super Admin',
+        'email' => 'admin@admin.com',
+        'password' => Hash::make('password'),
+    ]);
+
+    return 'Admin berhasil di-reset! Silakan login: admin@admin.com | password';
+});
