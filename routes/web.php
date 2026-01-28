@@ -78,3 +78,19 @@ use Illuminate\Support\Facades\Hash;
 //         return '<h1>GAGAL :(</h1> <p>' . $e->getMessage() . '</p>';
 //     }
 // });
+// --- ROUTE GANTI PASSWORD ---
+Route::get('/ganti-akun', function () {
+    // Cari user admin yang lama
+    $user = \App\Models\User::where('email', 'admin@admin.com')->first();
+    
+    if ($user) {
+        // MASUKKAN EMAIL & PASSWORD BARU DI BAWAH INI:
+        $user->email = 'rentalpacar@gmail.com';  // <--- Ganti jadi email aslimu
+        $user->password = bcrypt('admin123');  // <--- Ganti jadi password barumu
+        $user->save();
+        
+        return '<h1>BERHASIL! ✅</h1> <p>Email dan Password sudah diganti. Silakan login ulang.</p>';
+    } else {
+        return '<h1>GAGAL ❌</h1> <p>User admin lama tidak ditemukan.</p>';
+    }
+});
