@@ -244,14 +244,20 @@ body {
     #typing-text {
         font-size: 2rem;
     }
-    
+
     .features-container {
         flex-direction: column;
         align-items: center;
     }
-    
+
     .feature-card {
         width: 80%;
+    }
+}
+
+@media (max-width: 480px) {
+    #typing-text {
+        font-size: 1.5rem;
     }
 }
 
