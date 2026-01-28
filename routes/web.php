@@ -52,29 +52,29 @@ Route::get('/cecep', function () {
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-Route::get('/setup-mysql', function () {
-    try {
-        // 1. BERSIHKAN CACHE (Supaya route login muncul lagi)
-        \Illuminate\Support\Facades\Artisan::call('optimize:clear');
-        \Illuminate\Support\Facades\Artisan::call('route:clear');
+// Route::get('/setup-mysql', function () {
+//     try {
+//         // 1. BERSIHKAN CACHE (Supaya route login muncul lagi)
+//         \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+//         \Illuminate\Support\Facades\Artisan::call('route:clear');
 
-        // 2. Update Database
-        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+//         // 2. Update Database
+//         \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
 
-        // 3. Pastikan Admin Ada
-        // Hapus dulu biar tidak duplikat
-        \App\Models\User::where('email', 'admin@admin.com')->delete();
+//         // 3. Pastikan Admin Ada
+//         // Hapus dulu biar tidak duplikat
+//         \App\Models\User::where('email', 'admin@admin.com')->delete();
 
-        // Buat ulang
-        \App\Models\User::create([
-            'name' => 'Super Admin',
-            'email' => 'admin@admin.com',
-            'password' => bcrypt('password'),
-        ]);
+//         // Buat ulang
+//         \App\Models\User::create([
+//             'name' => 'Super Admin',
+//             'email' => 'admin@admin.com',
+//             'password' => bcrypt('password'),
+//         ]);
 
-        return '<h1>SUKSES & REFRESH! 🚀</h1> <p>Cache sudah dibersihkan. Database aman.</p> <p>Silakan coba login sekarang:</p> <ul><li><a href="/admin/login">Login Admin (Filament)</a></li><li><a href="/login">Login Biasa</a></li></ul>';
+//         return '<h1>SUKSES & REFRESH! 🚀</h1> <p>Cache sudah dibersihkan. Database aman.</p> <p>Silakan coba login sekarang:</p> <ul><li><a href="/admin/login">Login Admin (Filament)</a></li><li><a href="/login">Login Biasa</a></li></ul>';
 
-    } catch (\Exception $e) {
-        return '<h1>GAGAL :(</h1> <p>' . $e->getMessage() . '</p>';
-    }
-});
+//     } catch (\Exception $e) {
+//         return '<h1>GAGAL :(</h1> <p>' . $e->getMessage() . '</p>';
+//     }
+// });
