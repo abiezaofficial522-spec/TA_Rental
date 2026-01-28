@@ -211,7 +211,7 @@
                             <div class="card-body d-flex justify-content-between align-items-center">
                                 <div>
                                     <p class="text-muted small fw-bold text-uppercase mb-1">Pendapatan</p>
-                                    <h3 class="fw-bold mb-0">1jt</h3>
+                                    <h3 class="fw-bold mb-0">0.Rp</h3>
                                 </div>
                                 <div class="bg-warning bg-opacity-10 p-3 rounded text-warning">
                                     <i class="fa-solid fa-coins fs-4"></i>
