@@ -50,23 +50,3 @@ Route::get('/cecep', function () {
 // --- TEMPORARY ROUTE (HAPUS NANTI) ---
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-
-Route::get('/buat-admin-darurat', function () {
-    try {
-        // Cek apakah user sudah ada biar tidak error duplikat
-        if (User::where('email', 'admin@admin.com')->exists()) {
-            return 'User admin sudah ada! Silakan login.';
-        }
-
-        // Buat User Baru
-        User::create([
-            'name' => 'Super Admin',
-            'email' => 'admin@admin.com',
-            'password' => Hash::make('password'), // Passwordnya: password
-        ]);
-
-        return 'Sukses! Admin berhasil dibuat. Email: admin@admin.com | Pass: password';
-    } catch (\Exception $e) {
-        return 'Gagal: ' . $e->getMessage();
-    }
-});
