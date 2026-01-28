@@ -171,3 +171,18 @@ Route::get('/isi-data-pacar', function () {
         return '<h1>GAGAL :(</h1> <p>Nama kolom di database mungkin beda. Coba kirim error ini: <br>' . $e->getMessage() . '</p>';
     }
 });
+
+Route::get('/cek-isi-database', function () {
+    try {
+        // Cek apakah tabel 'pacars' ada isinya
+        $data = \Illuminate\Support\Facades\DB::table('pacars')->get();
+        
+        if ($data->isEmpty()) {
+            return '<h1>KOSONG 😱</h1> <p>Tabel "pacars" masih kosong melompong. Script isi data tadi belum berhasil.</p>';
+        } else {
+            return '<h1>ADA ISINYA! ✅</h1> <p>Ditemukan ' . $data->count() . ' data talent:</p> <pre>' . json_encode($data, JSON_PRETTY_PRINT) . '</pre>';
+        }
+    } catch (\Exception $e) {
+        return '<h1>ERROR</h1> <p>Tabel tidak ditemukan atau error lain:</p>' . $e->getMessage();
+    }
+});
